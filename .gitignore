@@ -34,8 +34,8 @@ go.work.sum
 # Local wacli state (if you point --store into the repo)
 *.db
 *.db-*
-media/
-store/
+/media/
+/store/
 
 # Built CLI binary
-wacli
+/wacli
