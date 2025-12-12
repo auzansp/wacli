@@ -174,7 +174,11 @@ func (a *App) Sync(ctx context.Context, opts SyncOptions) (SyncResult, error) {
 	}
 
 	// Bootstrap/once: exit after idle.
-	ticker := time.NewTicker(1 * time.Second)
+	poll := 250 * time.Millisecond
+	if opts.IdleExit >= 2*time.Second {
+		poll = 1 * time.Second
+	}
+	ticker := time.NewTicker(poll)
 	defer ticker.Stop()
 	for {
 		select {

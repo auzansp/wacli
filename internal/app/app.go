@@ -5,10 +5,45 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/steipete/wacli/internal/store"
 	"github.com/steipete/wacli/internal/wa"
+	"go.mau.fi/whatsmeow"
+	waProto "go.mau.fi/whatsmeow/binary/proto"
+	"go.mau.fi/whatsmeow/types"
 )
+
+type WAClient interface {
+	Close()
+	IsAuthed() bool
+	IsConnected() bool
+	Connect(ctx context.Context, opts wa.ConnectOptions) error
+
+	AddEventHandler(handler func(interface{})) uint32
+	RemoveEventHandler(id uint32)
+	ReconnectWithBackoff(ctx context.Context, minDelay, maxDelay time.Duration) error
+
+	ResolveChatName(ctx context.Context, chat types.JID, pushName string) string
+	GetContact(ctx context.Context, jid types.JID) (types.ContactInfo, error)
+	GetAllContacts(ctx context.Context) (map[types.JID]types.ContactInfo, error)
+
+	GetJoinedGroups(ctx context.Context) ([]*types.GroupInfo, error)
+	GetGroupInfo(ctx context.Context, jid types.JID) (*types.GroupInfo, error)
+	SetGroupName(ctx context.Context, jid types.JID, name string) error
+	UpdateGroupParticipants(ctx context.Context, group types.JID, users []types.JID, action wa.GroupParticipantAction) ([]types.GroupParticipant, error)
+	GetGroupInviteLink(ctx context.Context, group types.JID, reset bool) (string, error)
+	JoinGroupWithLink(ctx context.Context, code string) (types.JID, error)
+	LeaveGroup(ctx context.Context, group types.JID) error
+
+	SendText(ctx context.Context, to types.JID, text string) (types.MessageID, error)
+	SendProtoMessage(ctx context.Context, to types.JID, msg *waProto.Message) (types.MessageID, error)
+	Upload(ctx context.Context, data []byte, mediaType whatsmeow.MediaType) (whatsmeow.UploadResponse, error)
+	DownloadMediaToFile(ctx context.Context, directPath string, encFileHash, fileHash, mediaKey []byte, fileLength uint64, mediaType, mmsType string, targetPath string) (int64, error)
+
+	RequestHistorySyncOnDemand(ctx context.Context, lastKnown types.MessageInfo, count int) (types.MessageID, error)
+	Logout(ctx context.Context) error
+}
 
 type Options struct {
 	StoreDir      string
@@ -19,7 +54,7 @@ type Options struct {
 
 type App struct {
 	opts Options
-	wa   *wa.Client
+	wa   WAClient
 	db   *store.DB
 }
 
@@ -76,7 +111,7 @@ func (a *App) EnsureAuthed() error {
 	return fmt.Errorf("not authenticated; run `wacli auth`")
 }
 
-func (a *App) WA() *wa.Client      { return a.wa }
+func (a *App) WA() WAClient        { return a.wa }
 func (a *App) DB() *store.DB       { return a.db }
 func (a *App) StoreDir() string    { return a.opts.StoreDir }
 func (a *App) Version() string     { return a.opts.Version }

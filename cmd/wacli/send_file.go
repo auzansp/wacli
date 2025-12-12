@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/steipete/wacli/internal/app"
 	"github.com/steipete/wacli/internal/store"
 	"github.com/steipete/wacli/internal/wa"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
@@ -17,7 +18,7 @@ import (
 )
 
 func sendFile(ctx context.Context, a interface {
-	WA() *wa.Client
+	WA() app.WAClient
 	DB() *store.DB
 }, to types.JID, filePath, caption, mimeOverride string) (string, map[string]string, error) {
 	data, err := os.ReadFile(filePath)
